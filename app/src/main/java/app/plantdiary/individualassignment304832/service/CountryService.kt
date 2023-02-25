@@ -9,11 +9,12 @@ import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 
 class CountryService {
+    //asynchronous fetchCountries
     suspend fun fetchCountries(): List<Country>? {
         return withContext(Dispatchers.IO) {
             val retrofit = RetrofitClientInstance.retrofitInstance?.create(ICountryDAO::class.java)
-            val plants = async { retrofit?.fetchCountries() }
-            var result = plants.await()?.awaitResponse()?.body()
+            val countries = async { retrofit?.fetchCountries() }
+            var result = countries.await()?.awaitResponse()?.body()
             return@withContext result
         }
     }
